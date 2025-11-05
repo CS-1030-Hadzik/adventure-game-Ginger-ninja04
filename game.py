@@ -9,10 +9,11 @@ This is a text-based adventure game where the player makes choices to navigate t
 
 # create clear
 import os
+inventory = []
+
 
 def clear():
     os.system('cls' if os.name == 'nt' else 'clear')
-
 
 def welcome_player():
     clear()
@@ -21,6 +22,7 @@ def welcome_player():
     name = input("Whats your name, adventurer? ")
     clear()
     print(f"Welcome, {name}! Your journey begins here...")
+    return name
 
 def describe_area():
     starting_area = """
@@ -40,4 +42,12 @@ def describe_area():
     else:
         print("Confused, you stand still, unsure of what to do.")
 
-welcome_player()
+def add_to_inventory(item):
+    inventory.append(item)
+    print("You picked up", item)
+
+name = welcome_player()
+
+describe_area()
+
+add_to_inventory("sword")
