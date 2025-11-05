@@ -13,7 +13,8 @@ inventory = []
 
 
 def clear():
-    os.system('cls' if os.name == 'nt' else 'clear')
+    #os.system('cls' if os.name == 'nt' else 'clear')
+    print("Clear")
 
 def welcome_player():
     clear()
@@ -27,18 +28,19 @@ def welcome_player():
 def describe_area():
     starting_area = """
     You find yourself in a dark forest.
-    The sound of rustling leaves fills the air.
-    A faint path lies ahead, leading deeper into the unknown...
+    You see two paths ahead
     """
 
     print(starting_area)
 
-    decision = input("Do you wish to take the path? (yes or no): ").lower()
+    decision = input("Do you wish to take the path? (yes, no or i for inventory): ").lower()
     clear()
     if decision == "yes":
         print(f"Brave choice, {name}! You step onto the path and venture forward.")
     elif decision == "no":
         print("oops")
+    elif decision == "i":
+        print (inventory)
     else:
         print("Confused, you stand still, unsure of what to do.")
 
@@ -49,5 +51,8 @@ def add_to_inventory(item):
 name = welcome_player()
 
 describe_area()
+decision = input("/t1. Take the left path into the dark woods/n"
+                 "/t2. Take the right path towards the mountain pass/n"
+                 "/t3. Stay where you are/n"
+                 "/Type i to view your inventory").lower()
 
-add_to_inventory("sword")
