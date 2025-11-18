@@ -6,15 +6,14 @@ Description:
 This is a text-based adventure game where the player makes choices to navigate through a mysterious forest.
 """
 
+from Player import Player
 
-# create clear
 import os
 inventory = []
 
-
 def clear():
     #os.system('cls' if os.name == 'nt' else 'clear')
-    print("Clear")
+    print("")
 
 def welcome_player():
     clear()
@@ -23,9 +22,10 @@ def welcome_player():
     name = input("Whats your name, adventurer? ")
     clear()
     print(f"Welcome, {name}! Your journey begins here...")
-    return name
+    player = Player(name)
+    return player, name
 
-def describe_area():
+def describe_area(name, player):
     starting_area = """
     You find yourself in a dark forest.
     You see two paths ahead
@@ -40,19 +40,42 @@ def describe_area():
     elif decision == "no":
         print("oops")
     elif decision == "i":
-        print (inventory)
+        print (player.inventory)
     else:
         print("Confused, you stand still, unsure of what to do.")
 
-def add_to_inventory(item):
-    inventory.append(item)
+def add_to_inventory(item, player):
+    player.inventory.append(item)
     print("You picked up", item)
 
-name = welcome_player()
+player1, name = welcome_player()
 
-describe_area()
-decision = input("/t1. Take the left path into the dark woods/n"
-                 "/t2. Take the right path towards the mountain pass/n"
-                 "/t3. Stay where you are/n"
-                 "/Type i to view your inventory").lower()
+describe_area(name, player1)
+
+while (True):
+    decision = input("\t1. Take the left path into the dark woods\n"
+                     "\t2. Take the right path towards the mountain pass\n"
+                     "\t3. Stay where you are\n"
+                     "\t4. Explore the Hidden Valley\n"
+                     "\t5. Stay where you are\n"
+                     "\tType i to view your inventory: ").lower()
+
+    
+    if decision == "2":
+        print("You go towards the mountain pass")
+        add_to_inventory("map", player1)
+        player1.has_map = True
+    elif decision == "3":
+        if player1.has_lantern:
+            print("You go into the dark cave")
+            add_to_inventory("Treasure", player1)
+
+    elif decision == "4":
+        print("You go into The Hidden Valley with a bown of salad")
+    elif decision == "5":
+        print("Confused, you stand still, unsure of what to do.")
+    elif decision == "i":
+        print (player1.inventory)
+    else:
+        print("That is not a valid choice")
 
