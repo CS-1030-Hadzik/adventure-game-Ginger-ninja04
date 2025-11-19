@@ -27,15 +27,21 @@ def describe_area(name, player):
 
     print(starting_area)
 
-    decision = input("Do you wish to take the path? (yes, no or i for inventory): ").lower()
-    if decision == "yes":
-        print(f"Brave choice, {name}! You step onto the path and venture forward.")
-    elif decision == "no":
-        print("oops")
-    elif decision == "i":
-        print (player.inventory)
-    else:
-        print("Confused, you stand still, unsure of what to do.")
+    while True:
+        decision = input("Do you wish to take the path? (yes, no or i for inventory): ").lower()
+        if decision == "yes":
+            print(f"Brave choice, {name}! You step onto the path and venture forward.")
+            break   # exit the loop and continue game
+        elif decision == "no":
+            print("Then why are you here?")
+            exit()  # end the program
+        elif decision == "i":
+            print(player.inventory)
+            # then loop again
+        else:
+            print("Confused, you stand still, unsure of what to do.")
+            # then loop again
+
 
 def add_to_inventory(item, player):
     player.inventory.append(item)
