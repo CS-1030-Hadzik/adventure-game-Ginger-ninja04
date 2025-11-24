@@ -42,8 +42,8 @@ def describe_area(name, player):
             print("Confused, you stand still, unsure of what to do.")
             # then loop again
 
-
 def add_to_inventory(item, player):
+    inventory.append(item)
     player.inventory.append(item)
     print("You picked up", item)
 
@@ -107,7 +107,7 @@ while True:
         print("Confused, you stand still, unsure of what to do.")
 
     elif decision == "i":
-        print(player1.inventory)
+        print(inventory)
 
     else:
         print("That is not a valid choice.")
