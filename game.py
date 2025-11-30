@@ -10,14 +10,12 @@ from Player import Player
 
 
 def welcome_player():
-    print("Welcome to the Adventure Game!")  
-    print("Your journey begins here...")
-    name = input("Whats your name, adventurer? ")
-    print(f"Welcome, {name}! Your journey begins here...")
-    player = Player(name)
-    return player, name
+    print("Welcome to the Adventure Game!")
+    name = input("What's your name, adventurer? ")
+    print(f"Welcome, {name}! Your journey begins now...")
+    return Player(name)
 
-def describe_area(name, player):
+def describe_area(player):
     starting_area = """
     You find yourself in a dark forest.
     You see two paths ahead
@@ -28,21 +26,19 @@ def describe_area(name, player):
     while True:
         decision = input("Do you wish to take the path? (yes, no or i for inventory): ").lower()
         if decision == "yes":
-            print(f"Brave choice, {name}! You step onto the path and venture forward.")
-            break   # exit the loop and continue game
+            print(f"Brave choice, {player.name}! You step onto the path and venture forward.")
+            break
         elif decision == "no":
             print("Then why are you here?")
-            exit()  # end the program
+            exit()
         elif decision == "i":
             print(player.inventory)
-            # then loop again
         else:
             print("Confused, you stand still, unsure of what to do.")
-            # then loop again
 
 def add_to_inventory(item, player):
     player.inventory.append(item)
-    print("You picked up", item)
+    print(f"You picked up: {item}")
 
 def explore_dark_woods(player):
     print("You step into the dark woods. The trees close in around you and the light fades.")
@@ -92,9 +88,9 @@ def explore_hidden_valley(player):
         print("You wander around, but without a map you can't find the hidden valley.")
 
 
-player1, name = welcome_player()
+player1 = welcome_player()
 
-describe_area(name, player1)
+describe_area(player1)
 
 while True:
     decision = input("\t1. Look around the forest (search for useful items)\n"
