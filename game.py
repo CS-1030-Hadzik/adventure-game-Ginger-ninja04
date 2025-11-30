@@ -36,9 +36,31 @@ def describe_area(player):
         else:
             print("Confused, you stand still, unsure of what to do.")
 
+
+def stay_still(player):
+    print("You decide to stay where you are and do nothing.")
+    player.health -= 10
+    print("You feel your strength fading from inaction. You lose 10 health.")
+
+
+def check_win(player):
+    if "treasure" in player.inventory and "rare herbs" in player.inventory:
+        print("\nWith both treasure and rare herbs in your possession, you safely leave the forest a legend!")
+        print("YOU WIN!")
+        exit()
+
+
+def check_lose(player):
+    if player.health <= 0:
+        print("\nYou collapse from exhaustion. Your journey ends here in the dark forest.")
+        print("GAME OVER")
+        exit()
+
+
 def add_to_inventory(item, player):
     player.inventory.append(item)
     print(f"You picked up: {item}")
+
 
 def explore_dark_woods(player):
     print("You step into the dark woods. The trees close in around you and the light fades.")
@@ -71,7 +93,9 @@ def explore_cave(player):
         else:
             print("You've already collected the treasure from this cave.")
     else:
-        print("It's too dark to enter the cave without a lantern. You decide to turn back.")
+        print("It's too dark to enter the cave without a lantern. You stumble around and retreat.")
+        player.health -= 10
+        print("You hurt yourself in the dark. You lose 10 health.")
 
 
 def explore_hidden_valley(player):
@@ -86,6 +110,8 @@ def explore_hidden_valley(player):
             print("You've already gathered rare herbs from this valley.")
     else:
         print("You wander around, but without a map you can't find the hidden valley.")
+        player.health -= 10
+        print("All that wandering exhausts you. You lose 10 health.")
 
 
 player1 = welcome_player()
@@ -113,11 +139,16 @@ while True:
         explore_hidden_valley(player1)
 
     elif decision == "5":
-        print("Confused, you stand still, unsure of what to do.")
+        stay_still(player1)
 
     elif decision == "i":
         print(player1.inventory)
 
     else:
         print("That is not a valid choice.")
+
+    check_lose(player1)
+    check_win(player1)
+    print(f"Your current health: {player1.health}")
+
 
